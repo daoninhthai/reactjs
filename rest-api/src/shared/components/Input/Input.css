@@ -1,0 +1,7 @@
+.Input--root {
+    display: block;
+}
+.Input--field-error {
+    margin-top: 5px;
+    color: red;
+}

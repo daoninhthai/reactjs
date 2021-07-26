@@ -1,0 +1,251 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+ 
+   
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+.post-title a:hover {
+    text-decoration: none;
+}
+
+#searching {
+    display: none;
+    color: white;
+    position: absolute;
+    top: 4px;
+    right: -100px;
+}
+#search-btn {
+    padding-top:-2px;
+    background: none;
+    border:none;
+}
+
+
+
+
+.menu a {
+    color: white;
+}
+
+
+
+a {
+    text-decoration: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+}
+
+div.overlay {
+    background-color: black;
+    opacity: 0.9;
+    z-index: -1;
+}
+
+.background {
+    background-image: url(./background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    box-shadow: inset 0 0 0 2000px #000000ab;
+}
+
+.logo img {
+    width: 200px;
+}
+
+.logo {
+    grid-column: 1/5;
+}
+
+.navigation {
+    position: relative;
+    grid-column: 7/13;
+}
+
+.navbar-menu {
+    float: right;
+}
+
+.menu li {
+    margin: 30px 0px 0px 30px;
+    font-weight: 600;
+}
+
+.menu li a:hover {
+    color: lightskyblue;
+    text-decoration: none;
+}
+
+.navbar-menu .menu {
+    display: flex;
+}
+
+.search {
+   position: absolute;
+       margin-top: 15px;
+       right: 0;
+       top: 70px;
+}
+
+.search .fa-search {
+    color: white;
+}
+
+.info {
+    position: relative;
+    height: 350px;
+}
+
+.info-news .name-user {
+    color: white;
+}
+
+.info-news a:hover {
+    text-decoration: none;
+}
+
+.info-news .job {
+    color: #3EDBF0;
+}
+
+.info-news {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+   
+}
