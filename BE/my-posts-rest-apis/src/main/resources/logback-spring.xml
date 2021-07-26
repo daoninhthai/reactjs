@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="1 minute">
+
+  <property name="APPLICATION_NAME" value="sbt"/>
+  <property name="LOG_PATH" value="logs/app.log"/>
+  <property name="LOG_PATTERN"
+            value="%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] [%X{X-B3-TraceId:-}, %X{X-B3-SpanId:-}, %X{X-Span-Export:-} ] %-5level %logger{66} - %msg%n"/>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}</file>
+    <encoder>
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <FileNamePattern>
+        ${LOG_PATH}.%d{yyyy-MM-dd}.%i.zip
+      </FileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy
+              class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <MaxFileSize>100MB</MaxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+      <maxHistory value="30"/>
+      <totalSizeCap value="3 gb"/>
+    </rollingPolicy>
+  </appender>
+
+  <!--Known packages with verbose loggers-->
+  <logger name="com.zaxxer.hikari" level="INFO"/>
+  <logger name="org.springframework" level="INFO"/>
+
+  <!--ST packages-->
+  <logger name="com.nt.rookie" level="TRACE"/>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>
