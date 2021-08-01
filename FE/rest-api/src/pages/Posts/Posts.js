@@ -28,7 +28,7 @@ const Posts = () => {
     let didCancel = false;
     axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/v1/getall'
+      url: 'http://localhost:8080/api/v1/posts'
     })
       .then(response => {
         if (!didCancel) {
@@ -58,6 +58,7 @@ const Posts = () => {
   
   return (
     <div className="container">
+      <h2 className="title-posts-page">List of all posts</h2>
       <input
         type="text"
         placeholder="Search by title"
@@ -65,26 +66,26 @@ const Posts = () => {
         value={ searchText }
         onChange={ evt => setSearchText(evt.target.value) }
       />
-      <table>
+      <table className="table">
         <thead>
         <tr>
-          <th>ID</th>
-          <th onClick={ () => {
+          <th className="th" >ID</th>
+          <th className="th" onClick={ () => {
             if (sortByTitle === null) setSortByTitle('ASC');
             if (sortByTitle === 'ASC') setSortByTitle('DES');
             if (sortByTitle === 'DES') setSortByTitle(null);
           } }>Title -- Sort { sortByTitle === null ? '(NONE)' : sortByTitle }
           </th>
-          <th>Actions</th>
+          <th className="th">Actions</th>
         </tr>
         </thead>
         <tbody>
         {
           postsSorted.map(post => (
             <tr key={ post.id }>
-              <td>{ post.id }</td>
-              <td>{ post.title }</td>
-              <td>
+              <td className="td">{ post.id }</td>
+              <td className="td">{ post.title }</td>
+              <td className="td">
                 <Link to={ `posts/${ post.id }` }>
                   View detail
                 </Link>

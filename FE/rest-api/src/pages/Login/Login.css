@@ -173,13 +173,13 @@
     width: 0.5em;
   }
   
-  .login input[type='email'],
+  .login input[type='text'],
   .login input[type='password'] {
     border: 0.0625em solid #e5e5e5;
     padding: 1em 1.25em;
   }
   
-  .login input[type='email'] {
+  .login input[type='text'] {
     border-top-left-radius: var(--loginInputBorderRadius);
     border-top-right-radius: var(--loginInputBorderRadius);
   }
@@ -219,5 +219,11 @@
   
   .login__footer p {
     margin: 0;
+  }
+  .title-login{
+    
+    padding-top:50px;
+    text-align: center;
+    color: red;
   }
   

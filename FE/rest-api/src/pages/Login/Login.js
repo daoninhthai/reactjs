@@ -8,7 +8,8 @@ import { Formik } from "formik";
 import React from "react";
 import axios from "axios";
 
-const Login = (props) => {
+const Login = ({props,loginSuccess,title}) => {
+  const [showLoginSuccess, setShowLoginSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
   useEffect(() => {
     document.title = "Login";
@@ -16,6 +17,7 @@ const Login = (props) => {
 
   return (
     <div className="mainContent container">
+       <div className="title-login">{ title && <h5 >{ title }</h5> }</div>
       <Formik
         initialValues={{ username: "", password: "" }}
         validate={(values) => {
@@ -37,13 +39,16 @@ const Login = (props) => {
               username: values.username,
               password: values.password,
             },
-          })
+          }
+          )
             .then((response) => {
               setSubmitting(false);
               console.log(response);
               localStorage.clear();
+              setShowLoginSuccess(true);
+              loginSuccess({  token:"Bearer "+ response.data.jwttoken });
               localStorage.setItem("jwttoken","Bearer "+response.data.jwttoken);
-               window.location.href = "/";
+              localStorage.setItem("username",values.username);
             
           }).catch(() => {
             })
@@ -120,8 +125,13 @@ const Login = (props) => {
             <Button variant="primary" type="submit" disabled={isSubmitting}>
               Submit
             </Button>
+
             <p><span className="icon icon--info">?</span><a href="#">Forgot Password</a></p>
            </footer>
+           { showLoginSuccess &&
+            <div className="form--login-success">
+              Login success
+            </div> }
           </Form>
           </div>
           </div>

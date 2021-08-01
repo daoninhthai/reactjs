@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React, { useState } from 'react';
 
 import Aboutme from '../pages/Aboutme/Aboutme';
+import AdminPage from '../pages/Admin/AdminPage';
 import Contact from '../pages/Contact/Contact';
 import Createpost from '../pages/Createpost/Createpost';
 import Editpost from '../pages/Editpost/Editpost';
@@ -16,24 +17,46 @@ import Posts from '../pages/Posts/Posts';
 import Profile from '../pages/Profile/Profile';
 
 const initialCurrentUser = {
-  userId: null,
+ 
   token: null
 }
-
+const username = localStorage.getItem('username');
 const App = () => {
   const [currentUser, setCurrentUser] = useState(initialCurrentUser);
-  const loginSuccess = ({ userId, token }) => setCurrentUser({userId, token});
+  const loginSuccess = ({ token }) => setCurrentUser({token});
   const logout = () => setCurrentUser(initialCurrentUser);
-  const isUserLoggedIn = Boolean(currentUser.userId);
+  const isUserLoggedIn = Boolean(currentUser.token);
  
   return (
-    <BrowserRouter>
-      <div className="app-container">
-        <Navbar
+    <div>
+      
+     
+   
+    <BrowserRouter>  
+      <Navbar
           logout = { logout }
           isUserLoggedIn = { isUserLoggedIn }
         />
+        <Route path="/admin"
+            exact
+            render={ () => {
+              if(username!=="admin") return (
+                <Login
+                  title="To access the admin page, please log in with an admin account"
+                  loginSuccess={ loginSuccess }
+                />
+              );
+              return (
+                <AdminPage
+                  
+                />
+              )
+            }}
+           />
+      <div className="app-container">
+      
         <Switch>
+        
           <Route
             path="/"
             exact
@@ -72,15 +95,41 @@ const App = () => {
           <Route
             path="/editpost/:id"
             exact
-          >
-            <Editpost/>
-          </Route>
+            render={ () => {
+              if(!isUserLoggedIn) return (
+                <Login
+                  title="You need to be logged in to be able to edit posts"
+                  loginSuccess={ loginSuccess }
+                />
+              );
+              return (
+                <Editpost
+                  // currentUser = { currentUser }
+                />
+              )
+            }}
+           
+          />
+         
+         
           <Route
             path="/createpost"
             exact
-          >
-            <Createpost/>
-          </Route>
+            render={ () => {
+              if(!isUserLoggedIn) return (
+                <Login
+                  title="You need to login to be able to post"
+                  loginSuccess={ loginSuccess }
+                />
+              );
+              return (
+                <Createpost
+                  // currentUser = { currentUser }
+                />
+              )
+            }}
+          /> 
+          
           <Route
             path="/Aboutme"
             exact
@@ -106,6 +155,7 @@ const App = () => {
         <Footer />
       </div>
     </BrowserRouter>
+    </div>
   )
 }
 

@@ -1,13 +1,13 @@
-import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 function Editpost(props) {
-  const [post, setPost] = useState({ id: '', title: '', description: '', content: '' });
+  const [post, setPost] = useState({ id: '',avatar:'', title: '', description: '', content: '' });
   const [showLoading, setShowLoading] = useState(true);
   
   useEffect(() => {
@@ -15,7 +15,7 @@ function Editpost(props) {
     console.log(token1);
     setShowLoading(false);
     const fetchData = async () => {
-      const result = await axios(`http://localhost:8080/api/v1/id/${id}`);
+      const result = await axios(`http://localhost:8080/api/v1/posts/id/${id}`);
       setPost(result.data);
       console.log(result.data);
       setShowLoading(false);
@@ -32,14 +32,19 @@ function Editpost(props) {
   };
     setShowLoading(true);
     e.preventDefault();
-    const data = { title: post.title, description: post.description, content: post.content };
-      axios.put(`http://localhost:8080/api/v1/author/update/${id}`, data ,{headers})
+    const data = {avatar:post.avatar, title: post.title, description: post.description, content: post.content };
+      axios.put(`http://localhost:8080/api/v1/posts/author/${id}`, data ,{headers})
 
       .then((result) => {
         setShowLoading(false);
-        
+       
         window.location.href = "/";
-      }).catch((error) => setShowLoading(false));
+      }).catch((error) => {
+        setShowLoading(false)
+        if (error.status === 401 || 403) {
+          alert("You do not have permission to edit posts")
+       }
+      });
   };
 
   const onChange = (e) => {
@@ -48,7 +53,8 @@ function Editpost(props) {
   }
 
   return (
-    <div>
+    <div  className="container form-create">
+      <h2 className="title-posts-page center">Edit post</h2>
       {showLoading && 
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
@@ -56,19 +62,23 @@ function Editpost(props) {
       } 
      
         <Form className="container" onSubmit={editPost}>
-          <Form.Group>
-            <Form.Label>Title </Form.Label>
+        <Form.Group className="input-form">
+            <Form.Label  className="input-label">Avatar </Form.Label>
+            <Form.Control type="text" name="avatar" id="title" placeholder="Enter post name" value={post.avatar} onChange={onChange} />
+          </Form.Group>
+          <Form.Group className="input-form">
+            <Form.Label  className="input-label">Title </Form.Label>
             <Form.Control type="text" name="title" id="title" placeholder="Enter post name" value={post.title} onChange={onChange} />
           </Form.Group>
-          <Form.Group>
-          <Form.Label>Description</Form.Label>
+          <Form.Group className="input-form">
+          <Form.Label  className="input-label">Description</Form.Label>
             <Form.Control type="text" name="description" id="description" placeholder="Enter post description" value={post.description} onChange={onChange} />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Content</Form.Label>
+          <Form.Group className="input-form">
+            <Form.Label  className="input-label">Content</Form.Label>
             <Form.Control as="textarea" name="content" id="content" rows="3" placeholder="Enter post content" value={post.content} onChange={onChange} />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button className="input-button" variant="primary" type="submit">
             Update
           </Button>
         </Form>

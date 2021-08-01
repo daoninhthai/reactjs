@@ -1,7 +1,6 @@
 import "./SideBar.css";
 
-import ImgAbout from "./unnamed.jpg"
-import { Link } from "react-router-dom";
+import mockImg from './unnamed.jpg'
 
 export default function SideBar() {
   return (
@@ -9,7 +8,7 @@ export default function SideBar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">ABOUT ME</span>
         <img
-          src={ImgAbout}
+          src={mockImg}
           alt=""
         />
         <p>
